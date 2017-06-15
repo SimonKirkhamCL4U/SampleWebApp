@@ -1,5 +1,11 @@
 configuration: Release
 
+environment:
+  secret_key:
+    secure: ztnx6/QhFcn7p41Nco/hiC/ov7OdRbbSlEtiVkK4AJyXdMOP4dAbfkafR1i5pxap
+  access_key:
+    secure: 4TC42SnhpgHT/pv8LufCdVYzLq3NBBxqzeaBllDsYqE=
+
 # enable AssemblyInfo.cs patching with build version number
 assembly_info:
   patch: true
@@ -18,9 +24,15 @@ build:
   publish_wap: true
   project: SimpleWebsite/SimpleWebsite.sln
 
-
 artifacts:
   # pushing the website package
   - path: SimpleWebsite.zip
     name: SimpleWebsite-{build}
     type: WebDeployPackage
+
+deploy:
+  provider: S3
+  access_key_id: {access_key_id}
+  secret_access_key: {secret_key}
+  bucket: zuto-artefact-repo
+  region: eu-west-1
