@@ -10,7 +10,7 @@ assembly_info:
 
 # restore NuGet packages before running MSBuild
 before_build:
-  - nuget restore
+  - nuget restore SimpleWebsite/SimpleWebsite.sln
 
 # package Web Application project for Web Deploy
 build:
