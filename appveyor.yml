@@ -32,7 +32,7 @@ artifacts:
 
 deploy:
   provider: S3
-  access_key_id: {access_key_id}
+  access_key_id: {access_key}
   secret_access_key: {secret_key}
   bucket: zuto-artefact-repo
   region: eu-west-1
