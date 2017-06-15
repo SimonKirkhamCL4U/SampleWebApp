@@ -13,7 +13,7 @@ before_build:
 
 build_script:
   - msbuild SimpleWebsite/SimpleWebsite/SimpleWebsite.csproj /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:PackageLocation=%APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%_%APPVEYOR_BUILD_VERSION%.zip
-  - appveyor PushArtifact %APPVEYOR_PROJECT_NAME%_%APPVEYOR_BUILD_VERSION%.zip -Type WebDeployPackage
+  - appveyor PushArtifact SimpleWebsite/SimpleWebsite/%APPVEYOR_PROJECT_NAME%_%APPVEYOR_BUILD_VERSION%.zip -Type WebDeployPackage
 
 build:
   verbosity: minimal
