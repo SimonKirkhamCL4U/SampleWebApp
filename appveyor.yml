@@ -1,12 +1,5 @@
 configuration: Release
 
-environment:
-  secret_key:
-    secure: ztnx6/QhFcn7p41Nco/hiC/ov7OdRbbSlEtiVkK4AJyXdMOP4dAbfkafR1i5pxap
-  access_key:
-    secure: 4TC42SnhpgHT/pv8LufCdVYzLq3NBBxqzeaBllDsYqE=
-
-# enable AssemblyInfo.cs patching with build version number
 assembly_info:
   patch: true
   file: AssemblyInfo.*
@@ -14,25 +7,30 @@ assembly_info:
   assembly_file_version: "{version}"
   assembly_informational_version: "{version}"
 
-# restore NuGet packages before running MSBuild
+
 before_build:
   - nuget restore SimpleWebsite/SimpleWebsite.sln
 
-# package Web Application project for Web Deploy
+build_script:
+  - msbuild Dummy.WebApi.sln /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /t:Package /p:PackageLocation=%APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%_%APPVEYOR_BUILD_VERSION%.zip
+  - appveyor PushArtifact %APPVEYOR_PROJECT_NAME%_%APPVEYOR_BUILD_VERSION%.zip -Type WebDeployPackage
+
 build:
   verbosity: minimal
   publish_wap: true
   project: SimpleWebsite/SimpleWebsite.sln
 
 artifacts:
-  # pushing the website package
   - path: SimpleWebsite.zip
     name: SimpleWebsite-{build}
     type: WebDeployPackage
 
 deploy:
-  provider: S3
-  access_key_id: {access_key}
-  secret_access_key: {secret_key}
-  bucket: zuto-artefact-repo
+- provider: S3
+  access_key_id:
+    secure: 4TC42SnhpgHT/pv8LufCdVYzLq3NBBxqzeaBllDsYqE=
+  secret_access_key:
+    secure: ztnx6/QhFcn7p41Nco/hiC/ov7OdRbbSlEtiVkK4AJyXdMOP4dAbfkafR1i5pxap
   region: eu-west-1
+  bucket: zuto-artefacts-repo
+  encrypt: false
