@@ -17,7 +17,7 @@ build:
   project: SimpleWebsite/SimpleWebsite.sln
 
 after_build:
-  - cmd SimpleWebsite.zip SimpleWebsite-{build}.zip
+  - cmd rename SimpleWebsite.zip SimpleWebsite-{build}.zip
 
 
 deploy:
