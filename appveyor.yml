@@ -11,13 +11,13 @@ assembly_info:
 before_build:
   - nuget restore SimpleWebsite/SimpleWebsite.sln
 
+build_script:
+  - msbuild SimpleWebsite/SimpleWebsite.sln /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /t:Package /p:PackageLocation=%APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%_%APPVEYOR_BUILD_VERSION%.zip
+  - appveyor PushArtifact %APPVEYOR_PROJECT_NAME%_%APPVEYOR_BUILD_VERSION%.zip -Type WebDeployPackage
+
 build:
   verbosity: minimal
   publish_wap: true
-  project: SimpleWebsite/SimpleWebsite.sln
-
-after_build:
-  - cmd: rename SimpleWebsite.zip SimpleWebsite-{build}.zip
 
 
 deploy:
