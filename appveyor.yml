@@ -27,5 +27,5 @@ deploy:
   secret_access_key:
     secure: ztnx6/QhFcn7p41Nco/hiC/ov7OdRbbSlEtiVkK4AJyXdMOP4dAbfkafR1i5pxap
   region: eu-west-1
-  bucket: zuto-artefacts-repo
+  bucket: zuto-artefact-repo
   encrypt: false
